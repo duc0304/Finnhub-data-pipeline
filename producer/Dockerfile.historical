@@ -1,0 +1,16 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Cài đặt các dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Thêm các thư viện cần thiết cho historical producer
+RUN pip install --no-cache-dir pandas numpy
+
+# Copy code
+COPY historical_producer.py .
+
+# Entrypoint
+CMD ["python", "historical_producer.py"] 
