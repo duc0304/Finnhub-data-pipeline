@@ -1,0 +1,5 @@
+finnhub-python==2.4.18
+kafka-python==2.0.2
+websocket-client==1.6.4
+fastavro==1.8.2
+python-dotenv==1.0.0 
