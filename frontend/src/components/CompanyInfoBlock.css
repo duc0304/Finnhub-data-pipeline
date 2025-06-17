@@ -1,0 +1,674 @@
+.company-info-block {
+    display: flex;
+    width: 100%;
+    max-width: 1600px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    position: relative;
+}
+
+.company-info-block::before {
+    display: none;
+}
+
+.company-info-section {
+    flex: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    padding-right: 25px;
+    min-width: 0;
+}
+
+.company-logo {
+    width: 56px;
+    height: 56px;
+    background: #5c6bc0;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(92, 107, 192, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.company-logo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(92, 107, 192, 0.25);
+}
+
+.company-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    position: relative;
+    display: inline-block;
+}
+
+.company-name::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 36px;
+    height: 2px;
+    background: #5c6bc0;
+    border-radius: 1px;
+}
+
+.company-description {
+    font-size: 14px;
+    color: #555;
+    margin: 14px 0;
+    line-height: 1.5;
+    position: relative;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.company-links-grid {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.link-item-container {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 6px 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    width: fit-content;
+}
+
+.link-item-container:hover {
+    background: rgba(92, 107, 192, 0.05);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border-color: rgba(92, 107, 192, 0.2);
+}
+
+.link-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: rgba(92, 107, 192, 0.08);
+    border-radius: 4px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.link-item-container:hover .link-icon-wrapper {
+    background: rgba(92, 107, 192, 0.12);
+}
+
+.price-recommendation-section {
+    flex: 3;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Phần trên - giá và range */
+.price-top-section {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.price-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.current-price {
+    font-size: 28px;
+    font-weight: bold;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 2px 8px;
+    color: #333;
+}
+
+.price-change {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.price-change.positive {
+    color: #26a69a;
+}
+
+.price-change.negative {
+    color: #ef5350;
+}
+
+.arrow-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid rgb(255, 255, 255);
+    margin-right: 4px;
+}
+
+.arrow-up {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid rgb(255, 255, 255);
+    margin-right: 4px;
+}
+
+.percentage-badge {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    background-color: #ef5350;
+    padding: 2px 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.percentage-badge.positive {
+    background-color: #26a69a;
+}
+
+.price-range {
+    margin-bottom: 15px;
+    max-width: 400px;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    max-width: 400px;
+}
+
+.range-value {
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    max-width: 400px;
+}
+
+.range-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.range-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #e0e0e0;
+    position: relative;
+    margin: 5px 0;
+    border-radius: 3px;
+    max-width: 400px;
+}
+
+.range-fill {
+    height: 100%;
+    background-color: #0000009e;
+    border-radius: 3px;
+}
+
+.current-marker {
+    position: absolute;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #000000;
+    filter: drop-shadow(0px -1px 1px rgba(0, 0, 0, 0.3));
+}
+
+.company-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.stock-code {
+    font-size: 20px;
+    color: #7986cb;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.company-meta {
+    font-size: 15px;
+    color: #555;
+    margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.company-meta strong {
+    font-weight: 600;
+    color: #444;
+    margin-right: 8px;
+}
+
+.company-links-grid {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.link-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.company-link {
+    font-size: 14px;
+    color: #444;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.3s ease;
+}
+
+.company-link:hover {
+    color: #5c6bc0;
+}
+
+/* Phần thông tin giá và khuyến nghị */
+.info-recommendation-container {
+    display: flex;
+    gap: 20px;
+}
+
+.financial-metrics {
+    flex: 1;
+    font-size: 14px;
+    padding-right: 15px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.metric-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.metric-item.wide {
+    grid-column: span 2;
+}
+
+.metric-label {
+    color: #666;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.financial-metrics p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.financial-metrics strong {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tooltip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #eee;
+    color: #555;
+    font-size: 9px;
+    font-style: italic;
+    font-weight: bold;
+    cursor: help;
+    position: relative;
+}
+
+.tooltip-icon:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 10px;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: normal;
+    z-index: 10;
+    min-width: 180px;
+    max-width: 220px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.recommendation-section {
+    flex: 1;
+    padding-left: 5px;
+    min-width: 0;
+}
+
+.recommendation-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.recommendation-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    margin-top: 0;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.recommendation-rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.recommendation-rating-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.rating-value {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: center;
+}
+
+.rating-value.low {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.rating-value.medium {
+    background-color: #fff8e1;
+    color: #ff8f00;
+}
+
+.rating-value.high {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.recommendation-decision {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.decision-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.decision-badge.positive {
+    background-color: #26a69a;
+    color: white;
+}
+
+.decision-badge.negative {
+    background-color: #ef5350;
+    color: white;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .company-info-block {
+        background-color: #222;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .company-name, .company-meta, .range-value, .financial-metrics strong,
+    .recommendation-title, .rating-label, .current-price {
+        color: #ffffff;
+    }
+    
+    .company-description {
+        color: #ccc;
+    }
+    
+    .link-item-container {
+        background-color: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .link-item-container:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .link-icon-wrapper {
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    
+    .link-svg-icon {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .company-link {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .current-price {
+        border-color: #666;
+    }
+    
+    .stock-code, .range-label, .metric-label {
+        color: #aaa;
+    }
+    
+    .company-info-section, .price-top-section, .financial-metrics {
+        border-color: #444;
+    }
+    
+    .range-bar {
+        background-color: #444;
+    }
+    
+    .current-marker {
+        border-top-color: #ff9800;
+    }
+    
+    .price-change.positive {
+        color: #4db6ac;
+    }
+    
+    .recommendation-card {
+        background-color: #333;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .recommendation-title {
+        border-color: #444;
+    }
+    
+    .rating-value.low {
+        background-color: rgba(198, 40, 40, 0.2);
+        color: #ff5f52;
+    }
+    
+    .rating-value.medium {
+        background-color: rgba(255, 143, 0, 0.2);
+        color: #ffbc32;
+    }
+    
+    .rating-value.high {
+        background-color: rgba(46, 125, 50, 0.2);
+        color: #60ad5e;
+    }
+    
+    .metric-item {
+        border-bottom-color: #444;
+    }
+    
+    .tooltip-icon {
+        background-color: #444;
+        color: #ccc;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .company-info-block {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .company-info-section,
+    .price-recommendation-section {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 10px 0;
+        width: 100%;
+    }
+    
+    .price-recommendation-section {
+        border-bottom: none;
+    }
+    
+    .info-recommendation-container {
+        flex-direction: column;
+    }
+    
+    .financial-metrics {
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        padding-right: 0;
+    }
+
+    .company-name {
+        font-size: 18px;
+    }
+
+    .current-price,
+    .price-change,
+    .percentage-badge {
+        font-size: 22px;
+    }
+
+    .company-meta,
+    .company-description,
+    .company-link,
+    .financial-metrics p,
+    .recommendation-section p {
+        font-size: 12px;
+    }
+
+    .company-logo {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .range-label,
+    .range-value {
+        font-size: 12px;
+    }
+
+    .range-bar {
+        height: 4px;
+    }
+
+    .current-marker {
+        top: -6px;
+        border-top-width: 6px;
+    }
+    
+    .tooltip-icon:hover::after {
+        min-width: 150px;
+        font-size: 10px;
+    }
+    
+    .company-links-grid {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .metric-item.wide {
+        grid-column: span 1;
+    }
+}

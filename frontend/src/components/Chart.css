@@ -1,0 +1,88 @@
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: 100%;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.title-badge {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.timeframe-selector {
+  display: flex;
+  gap: 4px;
+}
+
+.timeframe-button {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.timeframe-button:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.timeframe-button.active {
+  background: #5c6bc0;
+  color: white;
+  box-shadow: 0 2px 4px rgba(92, 107, 192, 0.3);
+}
+
+.chart-content {
+  flex: 1;
+  min-height: 400px;
+}
+
+.candle-info {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  z-index: 1000;
+}
+
+.buttons-container {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.buttons-container button {
+  padding: 5px 10px;
+  background: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.buttons-container button:hover {
+  background: #4a5db9;
+} 

@@ -117,7 +117,7 @@ class HistoricalDataProducer:
         # Tạo danh sách giao dịch
         trades = []
         for i in range(self.trades_per_candle):
-            # Tạo điều kiện giao dịch giả
+            # Tạo điều kiện giao dịch
             conditions = ["@", "T"]
             if random.random() > 0.7:
                 conditions.append("I")  # Thêm điều kiện I (ISO) cho 30% giao dịch
@@ -135,8 +135,8 @@ class HistoricalDataProducer:
         
     def simulate_realtime_stream(self):
         """Giả lập dữ liệu thời gian thực từ dữ liệu lịch sử"""
-        print(f"Starting simulation at {self.speed_factor}x speed...")
-        print(f"Simulating approximately {self.trades_per_candle} trades per candle")
+        print(f"Starting data replay at {self.speed_factor}x speed...")
+        print(f"Processing approximately {self.trades_per_candle} trades per candle")
         
         # Tạo danh sách tất cả nến từ tất cả ticker và sắp xếp theo thời gian
         all_candles = []
@@ -156,10 +156,10 @@ class HistoricalDataProducer:
         all_candles = sorted(all_candles, key=lambda x: x['timestamp'])
         
         if not all_candles:
-            print("No candles to simulate!")
+            print("No candles to process!")
             return
             
-        print(f"Total candles to simulate: {len(all_candles)}")
+        print(f"Total candles to process: {len(all_candles)}")
         
         # Thời gian bắt đầu mô phỏng
         sim_start_time = time.time()
@@ -194,7 +194,7 @@ class HistoricalDataProducer:
                 print(f"Currently at: {datetime.datetime.fromtimestamp(candle['timestamp'])}")
                 self.last_status_time = time.time()
                 
-        print("Simulation completed!")
+        print("Data processing completed!")
             
     def send_trades_to_kafka(self, trades):
         """Gửi giao dịch tới Kafka"""
@@ -223,15 +223,15 @@ class HistoricalDataProducer:
             print("Fetching historical data...")
             self.fetch_historical_data()
             
-            print("Starting simulation...")
+            print("Starting data processing...")
             self.simulate_realtime_stream()
             
         except KeyboardInterrupt:
-            print("\nSimulation interrupted by user.")
+            print("\nData processing interrupted by user.")
         except Exception as e:
-            print(f"Error in simulation: {e}")
+            print(f"Error in data processing: {e}")
         finally:
-            print(f"Simulation ended. Sent {self.message_count} messages to Kafka.")
+            print(f"Data processing ended. Sent {self.message_count} messages to Kafka.")
             
 
 if __name__ == "__main__":

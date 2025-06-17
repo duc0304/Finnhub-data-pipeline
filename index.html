@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnhub Trades Stream</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .status.connected { background-color: #4caf50; }
+        .status.disconnected { background-color: #f44336; }
+        .status.connecting { background-color: #ff9800; }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background-color: #2d2d2d;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        
+        .trades-container {
+            max-height: 600px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2d2d2d;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+        }
+        th {
+            background-color: #333;
+            position: sticky;
+            top: 0;
+        }
+        .price-up { color: #4caf50; }
+        .price-down { color: #f44336; }
+        .symbol { font-weight: bold; }
+        .time { color: #888; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Finnhub Trades Stream</h1>
+        <div id="status" class="status connecting">Đang kết nối...</div>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-number" id="tradeCount">0</div>
+            <div>Trades</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="symbolCount">0</div>
+            <div>Symbols</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number" id="uptime">00:00</div>
+            <div>Uptime</div>
+        </div>
+    </div>
+    
+    <div class="trades-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Price</th>
+                    <th>Volume</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="tradesTable">
+                <!-- Trades sẽ được thêm vào đây -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let ws;
+        let tradeCount = 0;
+        let symbols = new Set();
+        let startTime = new Date();
+        
+        function connect() {
+            ws = new WebSocket('ws://localhost:8080');
+            
+            ws.onopen = function() {
+                console.log('✅ Connected to WebSocket');
+                updateStatus('connected', 'Đã kết nối');
+            };
+            
+            ws.onmessage = function(event) {
+                const message = JSON.parse(event.data);
+                
+                if (message.type === 'trade') {
+                    // Handle Finnhub data format: {data: [trades], type: "trade"}
+                    if (message.data && message.data.data && Array.isArray(message.data.data)) {
+                        // Process each trade in the array
+                        message.data.data.forEach(trade => {
+                            displayTrade(trade);
+                        });
+                        updateStats();
+                    } else {
+                        // Fallback for direct trade object
+                        displayTrade(message.data);
+                        updateStats();
+                    }
+                } else if (message.type === 'connected') {
+                    console.log('📱 Welcome:', message.message);
+                }
+            };
+            
+            ws.onclose = function() {
+                console.log('❌ WebSocket closed');
+                updateStatus('disconnected', 'Mất kết nối - Đang thử lại...');
+                setTimeout(connect, 3000); // Retry sau 3s
+            };
+            
+            ws.onerror = function(error) {
+                console.error('❌ WebSocket error:', error);
+                updateStatus('disconnected', 'Lỗi kết nối');
+            };
+        }
+        
+        function updateStatus(status, message) {
+            const statusEl = document.getElementById('status');
+            statusEl.className = `status ${status}`;
+            statusEl.textContent = message;
+        }
+        
+        function displayTrade(trade) {
+            const table = document.getElementById('tradesTable');
+            
+            // Tạo row mới
+            const row = table.insertRow(0);
+            
+            // Symbol
+            const symbolCell = row.insertCell(0);
+            symbolCell.className = 'symbol';
+            symbolCell.textContent = trade.s || trade.symbol || 'N/A';
+            
+            // Price
+            const priceCell = row.insertCell(1);
+            const price = trade.p || trade.price || 0;
+            priceCell.textContent = `$${parseFloat(price).toFixed(4)}`;
+            priceCell.className = Math.random() > 0.5 ? 'price-up' : 'price-down';
+            
+            // Volume
+            const volumeCell = row.insertCell(2);
+            const volume = trade.v || trade.volume || 0;
+            volumeCell.textContent = formatNumber(volume);
+            
+            // Time
+            const timeCell = row.insertCell(3);
+            timeCell.className = 'time';
+            timeCell.textContent = new Date().toLocaleTimeString();
+            
+            // Giữ tối đa 100 rows
+            if (table.rows.length > 100) {
+                table.deleteRow(100);
+            }
+            
+            // Update counters
+            tradeCount++;
+            symbols.add(trade.s || trade.symbol);
+        }
+        
+        function updateStats() {
+            document.getElementById('tradeCount').textContent = tradeCount;
+            document.getElementById('symbolCount').textContent = symbols.size;
+            
+            // Update uptime
+            const now = new Date();
+            const diff = Math.floor((now - startTime) / 1000);
+            const minutes = Math.floor(diff / 60);
+            const seconds = diff % 60;
+            document.getElementById('uptime').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+        
+        // Update uptime mỗi giây
+        setInterval(updateStats, 1000);
+        
+        // Start connection
+        connect();
+    </script>
+</body>
+</html> 

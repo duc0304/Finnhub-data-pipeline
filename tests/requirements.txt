@@ -1,0 +1,40 @@
+# Testing Dependencies
+pytest==7.4.0
+pytest-asyncio==0.21.1
+pytest-mock==3.11.1
+
+# Kafka Testing
+kafka-python==2.0.2
+confluent-kafka==2.2.0
+
+# Cassandra Testing
+cassandra-driver==3.28.0
+
+# WebSocket Testing
+websockets==11.0.3
+
+# HTTP/API Testing
+requests==2.31.0
+aiohttp==3.8.5
+
+# Load Testing
+locust==2.16.1
+
+# Monitoring & Metrics
+prometheus-client==0.17.1
+psutil==5.9.5
+
+# Docker Integration
+docker==6.1.3
+
+# Data Processing
+pandas==2.0.3
+numpy==1.25.2
+
+# Logging & Reporting
+colorlog==6.7.0
+jinja2==3.1.2
+
+# Async Support
+asyncio-mqtt==0.13.0
+aiokafka==0.8.10 
